@@ -1,0 +1,31 @@
+---
+version: "3.9"
+services:
+  todo:
+    build:
+      context: .
+    environment:
+      TODO_DATABASE_USER: "todo"
+      TODO_DATABASE_PASSWORD: "todo"
+      TODO_DATABASE_HOST: "postgres:5432"
+      TODO_DATABASE_NAME: "todo"
+      TODO_ADDR: ":8080"
+      TODO_LOG_LEVEL: "info"
+      TODO_VERSION: "development"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+      POSTGRES_DB: todo
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
+
+volumes:
+  postgres:

@@ -1,0 +1,73 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px black;
+    border-radius: 0.5rem;
+}
+
+.heading-small {
+    font-size: 1rem;
+}
+
+.heading-large {
+    font-size: 2rem;
+}
+
+.form-container{
+     margin: 0;
+}
+
+.complete {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.container,
+.text-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.text-container,
+.priority-container {
+    margin: 10px 10px;
+}
+
+.todo-text {
+    width: 500px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.priority-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.priority-container select,
+.submit-container button  {
+    margin: 5px 0;
+}
+
+.submit-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-container{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.todo-list {
+    margin: 0;
+}

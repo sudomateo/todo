@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Todo Application</title>
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/main.js" defer></script>
+</head>
+
+<body>
+    <h1>Todo App</h1>
+    <h3 class="heading-small">Version: {{ .Version }}</h3>
+
+    <main>
+        <div class="form-container">
+            <h2 class="heading-large">Create a Todo</h2>
+            <form id="create-form">
+                <div class="container">
+                    <div class="text-container">
+                        <label for="todo-text">Enter Task: </label>
+                        <input class="todo-text" id="todo-text" type="text" placeholder="Go to the gym">
+                    </div>
+                    <div class="priority-container">
+                        <label for="todo-priority">Select Priority</label>
+                        <select id="todo-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="submit-container">
+                        <label for="todo-submit">Create Todo</label>
+                        <button id="todo-submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="todo-container">
+            <h3>Current Todos</h3>
+            <ol class="todo-list">
+                {{ range .Todos }}
+                <li id={{ .ID }}>
+                    <button class="complete-btn">Complete</button>
+                    <button class="delete-btn">Delete</button>
+                    {{ if .Completed }}
+                    <span class="complete">{{ .Text }} - {{ .Priority }}</span>
+                    {{ else }}
+                    <span>{{ .Text }} - {{ .Priority }}</span>
+                    {{ end }}
+                </li>
+                {{ end }}
+            </ol>
+        </div>
+    </main>
+</body>
+</html>

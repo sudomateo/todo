@@ -1,0 +1,27 @@
+name: Container
+
+on:
+  push:
+
+env:
+  IMAGE_NAME: todo
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build container image
+        run: docker build --tag ${IMAGE_NAME} .
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io --username $ --password-stdin
+      - name: Push container image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${IMAGE_NAME}
+          docker tag ${IMAGE_NAME} ${IMAGE_ID}:latest
+          docker push ${IMAGE_ID}:latest
