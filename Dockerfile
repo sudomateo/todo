@@ -2,7 +2,7 @@ FROM golang:1.19-bullseye AS builder
 
 WORKDIR /usr/src/todo-api
 
-COPY go.mod go.sum .
+COPY go.mod go.sum ./
 
 RUN go mod download && go mod verify
 
