@@ -17,6 +17,7 @@ jobs:
       - name: Format
         run: |
           if [ "$(gofmt -d -e . | wc -l)" -gt 0 ]; then
+            gofmt -d -e .
             exit 1
           fi
   build:
