@@ -20,7 +20,7 @@ import (
 var (
 	defaultLogLevel = "info"
 	defaultAddress  = ":7836"
-	defaultVersion= "development"
+	defaultVersion  = "development"
 )
 
 type config struct {
