@@ -52,7 +52,13 @@ func (t TodoCreateParams) Validate() error {
 		))
 	}
 
-	return NewValidationError(errors.Join(errs...))
+	err := errors.Join(errs...)
+
+	if err != nil {
+		return NewValidationError(err)
+	}
+
+	return nil
 }
 
 // TodoUpdateParams represents the information that clients can modify for a
@@ -84,5 +90,11 @@ func (t TodoUpdateParams) Validate() error {
 		}
 	}
 
-	return NewValidationError(errors.Join(errs...))
+	err := errors.Join(errs...)
+
+	if err != nil {
+		return NewValidationError(err)
+	}
+
+	return nil
 }

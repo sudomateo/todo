@@ -1,6 +1,7 @@
 # todo
 
-A todo web application. Primarily used for educational purposes.
+A todo web application. Used for educational purposes with
+https://github.com/sudomateo/terraform-training.
 
 ## Running
 
