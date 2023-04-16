@@ -108,6 +108,12 @@ func run(log hclog.Logger) error {
 		return func(c echo.Context) error {
 			if err := next(c); err != nil {
 				log.Error("error serving request", "error", err)
+
+				var vErr todo.ValidationError
+				if errors.As(err, &vErr) {
+					return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+				}
+
 				return err
 			}
 

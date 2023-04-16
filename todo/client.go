@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -47,7 +48,12 @@ func (c *Client) ListTodos() ([]Todo, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("invalid status code %v", resp.StatusCode)
+		buf := new(bytes.Buffer)
+		if _, err := io.Copy(buf, resp.Body); err != nil {
+			return nil, fmt.Errorf("failed listing todos: received status code %v", resp.StatusCode)
+		}
+
+		return nil, fmt.Errorf("failed listing todos: %v", buf.String())
 	}
 
 	todos := make([]Todo, 0)
@@ -71,9 +77,15 @@ func (c *Client) GetTodo(id string) (Todo, error) {
 	if err != nil {
 		return Todo{}, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return Todo{}, fmt.Errorf("invalid status code %v", resp.StatusCode)
+		buf := new(bytes.Buffer)
+		if _, err := io.Copy(buf, resp.Body); err != nil {
+			return Todo{}, fmt.Errorf("failed getting todo: received status code %v", resp.StatusCode)
+		}
+
+		return Todo{}, fmt.Errorf("failed getting todo: %v", buf.String())
 	}
 
 	var td Todo
@@ -102,9 +114,15 @@ func (c *Client) CreateTodo(params TodoCreateParams) (Todo, error) {
 	if err != nil {
 		return Todo{}, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
-		return Todo{}, fmt.Errorf("invalid status code %v", resp.StatusCode)
+		buf := new(bytes.Buffer)
+		if _, err := io.Copy(buf, resp.Body); err != nil {
+			return Todo{}, fmt.Errorf("failed creating todo: received status code %v", resp.StatusCode)
+		}
+
+		return Todo{}, fmt.Errorf("failed creating todo: %v", buf.String())
 	}
 
 	var td Todo
@@ -133,9 +151,15 @@ func (c *Client) UpdateTodo(id string, params TodoUpdateParams) (Todo, error) {
 	if err != nil {
 		return Todo{}, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return Todo{}, fmt.Errorf("invalid status code %v", resp.StatusCode)
+		buf := new(bytes.Buffer)
+		if _, err := io.Copy(buf, resp.Body); err != nil {
+			return Todo{}, fmt.Errorf("failed updating todo: received status code %v", resp.StatusCode)
+		}
+
+		return Todo{}, fmt.Errorf("failed updating todo: %v", buf.String())
 	}
 
 	var td Todo
@@ -159,9 +183,15 @@ func (c *Client) DeleteTodo(id string) error {
 	if err != nil {
 		return err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusNoContent {
-		return fmt.Errorf("invalid status code %v", resp.StatusCode)
+		buf := new(bytes.Buffer)
+		if _, err := io.Copy(buf, resp.Body); err != nil {
+			return fmt.Errorf("failed deleting todo: received status code %v", resp.StatusCode)
+		}
+
+		return fmt.Errorf("failed deleting todo: %v", buf.String())
 	}
 
 	return nil
