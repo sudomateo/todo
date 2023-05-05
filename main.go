@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"html/template"
 	"io"
 	"net/http"
 	"net/url"
@@ -13,7 +14,6 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"text/template"
 	"time"
 
 	"github.com/google/uuid"
